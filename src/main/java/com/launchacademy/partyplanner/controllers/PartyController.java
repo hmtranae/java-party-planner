@@ -67,6 +67,7 @@ public class PartyController {
   @PostMapping("/party/friends")
   public String inviteFriendToParty(@ModelAttribute Friend friend, Model model) {
     System.out.println(friend);
+    // update rather than make a new friend
     return null;
   }
 }
