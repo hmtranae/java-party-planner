@@ -1,13 +1,17 @@
 package com.launchacademy.partyplanner.models;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -24,6 +28,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "parties")
 public class Party {
+
   @Id
   @SequenceGenerator(name = "party_generator", sequenceName = "parties_id_seq", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "party_generator")
@@ -42,6 +47,22 @@ public class Party {
   @Column(name = "description", nullable = false)
   private String description;
 
-  @OneToMany(mappedBy = "party", cascade = CascadeType.ALL)
-  private List<Friend> friends = new ArrayList<>();
+  @ManyToMany(fetch = FetchType.LAZY,
+      cascade = {
+          CascadeType.PERSIST,
+          CascadeType.MERGE
+      },
+      mappedBy = "parties")
+  private Set<Friend> friends = new HashSet<>();
+
+  @Override
+  public String toString() {
+    return "Party{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        ", location='" + location + '\'' +
+        ", description='" + description + '\'' +
+        ", friends=" + friends +
+        '}';
+  }
 }
