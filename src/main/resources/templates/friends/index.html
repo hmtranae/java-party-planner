@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body})}">
+
+<body>
+<h1>Friends</h1>
+<a th:href="@{'/friends/new'}" th:text="'Add a new friend'"></a>
+<ul>
+  <div th:each="friend : ${friends}">
+    <div th:object="${friend}">
+      <li>
+        <p th:text="'First Name: ' + *{firstName}"></p>
+        <p th:text="'Last Name: ' + *{lastName}"></p>
+      </li>
+    </div>
+  </div>
+</ul>
+</body>
+</html>

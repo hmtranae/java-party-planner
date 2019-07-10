@@ -1,0 +1,1 @@
+ALTER TABLE friends ALTER COLUMN party_id DROP NOT NULL;

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body})}">
+
+<body>
+<h1 th:text="${party.name}"></h1>
+<a th:href="@{'/parties'}" th:text="'Go back to parties page'"></a>
+
+<ul>
+  <div th:object="${party}">
+    <li th:text="'Location: ' + *{location}"></li>
+    <li th:text="'Description: ' + *{description}"></li>
+  </div>
+</ul>
+
+<h2>Friends Invited:</h2>
+
+<ul>
+  <div th:each="friend : ${friendsInvited}">
+    <div th:object="${friend}">
+      <li>
+        <p th:text="'First Name: ' + *{firstName}"></p>
+        <p th:text="'Last Name: ' + *{lastName}"></p>
+      </li>
+    </div>
+  </div>
+</ul>
+
+<hr/>
+
+<h2>Invite a new friend:</h2>
+
+<form action="#" th:action="@{/party/friends}" th:object="${friend}" method="POST">
+  <select th:field="*{id}">
+    <option value=""> -- </option>
+    <option th:each="currentFriend : ${allFriends}" th:value="${currentFriend.id}"
+            th:text="${currentFriend.firstName + ' ' + currentFriend.lastName}"></option>
+  </select>
+
+  <div>
+    <input type="submit" value="Invite"/>
+  </div>
+</form>
+</body>
+</html>

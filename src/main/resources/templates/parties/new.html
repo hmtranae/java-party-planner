@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body})}">
+
+<body>
+<h1>Add a New Party</h1>
+<a th:href="@{'/parties'}" th:text="'Go back to parties page'"></a>
+
+<form action="#" th:action="@{/parties}" th:object="${party}" method="POST">
+  <div>
+    <label th:for="name">Name</label>
+    <input type="text" th:field="*{name}"/>
+  </div>
+
+  <div>
+    <label th:for="location">Location</label>
+    <input type="text" th:field="*{location}"/>
+  </div>
+
+  <div>
+    <label th:for="description">Description</label>
+    <input type="text" th:field="*{description}"/>
+  </div>
+
+  <div>
+    <input type="submit" value="Log Party"/>
+  </div>
+</form>
+</body>
+</html>
