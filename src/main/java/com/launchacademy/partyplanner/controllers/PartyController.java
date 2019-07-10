@@ -37,11 +37,9 @@ public class PartyController {
   }
 
   @GetMapping("/parties/{partyName}")
-  public String getShow(@PathVariable String partyName, Model model) {
+  public String getShow(@PathVariable String partyName, @ModelAttribute Friend friend, Model model) {
     partyName = partyRepository.formatUrlString(partyName);
     Integer partyId = partyRepository.findByName(partyName).getId();
-
-    Friend friend = new Friend();
 
     model.addAttribute("party", partyRepository.findByName(partyName));
     model.addAttribute("friendsInvited", friendRepository.findAllByPartyId(partyId));
@@ -51,8 +49,7 @@ public class PartyController {
   }
 
   @GetMapping("/parties/new")
-  public String getNewParty(Model model) {
-    Party party = new Party();
+  public String getNewParty(@ModelAttribute Party party, Model model) {
     model.addAttribute("party", party);
     return "parties/new";
   }
